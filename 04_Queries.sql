@@ -52,7 +52,33 @@ INNER JOIN PayRoll p
     ON e.EmployeeID = p.EmployeeID
 GROUP BY d.DepartmentName
 ORDER BY TotalSalaryPaid DESC;
---10 
+--10 Highest Salary Employee
+     Returns the employee with the highest basic salary.
+  select e.FirstName,p.BasicSalary
+  From Employees e
+  Join PayRoll p On e.EmployeeID = p.EmployeeID
+  Where p.BasicSalary = (select Max(BasicSalary) From PayRoll)
+--11 Lowest Salary Employee
+     Returns the employee with the Lowest basic salary
+  select e.FirstName,p.BasicSalary
+  From Employees e
+  Join PayRoll p On e.EmployeeID = p.EmployeeID
+  Where p.BasicSalary = (select Min(BasicSalary) From PayRoll)
+--12 Employees earning above average salary
+     SELECT e.FirstName, p.BasicSalary
+     FROM Employees e
+     JOIN payroll p ON e.EmployeeID = p.EmployeeID
+     WHERE p.BasicSalary > (SELECT AVG(BasicSalary) FROM payroll);
+--13 Net Salary
+     SELECT 
+    e.FirstName,
+    p.BasicSalary,
+    p.HRA,
+    p.DA,
+    p.Deductions,
+    (p.BasicSalary + p.HRA + p.DA - p.Deductions) AS NetSalary
+FROM Employees e
+JOIN Payroll p ON e.EmployeeID = p.EmployeeID;
 
  
 
