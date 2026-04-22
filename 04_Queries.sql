@@ -79,6 +79,16 @@ ORDER BY TotalSalaryPaid DESC;
     (p.BasicSalary + p.HRA + p.DA - p.Deductions) AS NetSalary
 FROM Employees e
 JOIN Payroll p ON e.EmployeeID = p.EmployeeID;
+--14 Count Present Days per Employee
+     SELECT 
+    e.EmployeeID,
+    e.FirstName,
+    COUNT(*) AS PresentDays
+FROM Employees e
+JOIN Attendance a 
+    ON e.EmployeeID = a.EmployeeID
+WHERE a.Status = 'Present'
+GROUP BY e.EmployeeID, e.FirstName;
 
  
 
