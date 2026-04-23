@@ -89,6 +89,19 @@ JOIN Attendance a
     ON e.EmployeeID = a.EmployeeID
 WHERE a.Status = 'Present'
 GROUP BY e.EmployeeID, e.FirstName;
-
+--15 View  of EmployeePayrollSummary
+    CREATE VIEW EmployeePayrollSummary AS
+SELECT 
+    e.EmployeeID,
+    e.FirstName + ' ' + e.LastName AS FullName,
+    d.DepartmentName,
+    p.BasicSalary,
+    p.HRA,
+    p.DA,
+    p.Deductions,
+    (p.BasicSalary + p.HRA + p.DA - p.Deductions) AS NetSalary
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+JOIN PayRoll p ON e.EmployeeID = p.EmployeeID;
  
 
